@@ -1,0 +1,98 @@
+{% extends 'base.html'%}
+
+<!-- title block -->
+{% block title%} Home {% endblock%}
+
+
+<!-- style -->
+{%block style%}   <!-- <link rel="stylesheet" href="{{ url_for('static', filename='static/css/main.css') }}"> -->
+   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    
+   
+   <style>
+        html {
+        height: 100%;
+        }
+        h4, label {
+        margin: 0 0 30px;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+        }
+        body {
+            margin:0;
+            padding:0;
+            font-family: sans-serif;
+            background: linear-gradient(#141e30, #243b55);
+          }
+        form {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            color: #03e9f4;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: .5s;
+            margin-top: 40px;
+            letter-spacing: 4px
+        }
+    </style>
+{%endblock%}
+
+
+<!-- content -->
+{% block content%}
+<br>
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active aria-current='page'">الصفحة الرئسية</li>
+            <li class="breadcrumb-item" align="center"><a href="/records">عرض البيانات</a></li>
+            <li class="breadcrumb-item" align="center"><a href="/receipt">استخراج فاتوره</a></li>
+        </ol>
+    </nav>
+</div>
+<div align="right">
+    <div _ngcontent-kof-c782 class="container my-md-auto mx-aut">
+        <h4 align="center">اضافة بيانات اليوم</h4>
+
+        <form method="POST">
+            <!-- test-area -->
+            <label for="unites"> : رقم المبنى</label>
+            <br>
+            <select name="building">
+                <option value="1">عمارة رقم 1</option>
+                <option value="1">عمارة رقم 2</option>
+                <option value="1">عمارة رقم 3</option>
+                <option value="1">عمارة رقم 4</option>
+            </select>
+            <br>
+            <br>
+            <label for="unites">: رقم الوحدة</label>
+            <br>
+            <select name="unites">
+                <option value="وحده رقم 1">وحدة رقم 1</option>
+                <option value="وحده رقم 2">وحدة رقم 2</option>
+                <option value="وحده رقم 3">وحدة رقم 3</option>
+                <option value="وحده رقم 4">وحدة رقم 4</option>
+                <option value="وحده رقم 5">وحدة رقم 5</option>
+            </select>
+            <br>
+            <br>
+            <label for="service"> : نوع الخدمة</label>
+            <input type="text" name="service" class="form-control" placeholder="service type"><br>
+            <label for="price"> : المبلغ المطلوب</label>
+            <input type="text" name="price" class="form-control" placeholder="price"><br>
+
+            <label for="note">: ملاحظات</label>
+            <textarea name="note" id="note" class="form-control"></textarea>
+            <br/>
+            <div align="right">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

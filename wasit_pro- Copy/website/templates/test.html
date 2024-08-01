@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+
+<!-- title block -->
+{% block title%} Records {% endblock%}
+
+{%block style%} 
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  html {
+    height: 100%;
+  }
+  h2, h3 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  body {
+
+    background: linear-gradient(#141e30, #243b55);
+  }
+  table.tb{ border-collapse: collapse; width:188px; }
+  .tb th, .tb td { padding: 0px;}
+</style>
+{%endblock%}
+
+<!-- content -->
+{% block content%}
+<br>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">الصفحة الرئسية</a></li>
+        <li class="breadcrumb-item">عرض البيانات</li>
+    </ol>
+</nav>
+
+<h2 align="center">مكتب وسيط المملكة للعقارات والمقاولات العامة</h2>
+<button class="btn btn-primary" onclick="toggle(this);">اخفاء الجدول</button>
+<h3 align="center">: مبنى رقم 1  </h3>
+
+
+<!-- table content -->
+<div>
+  <table class="tb" style="width:100%">
+      <tr>
+        <td>  
+          <td>
+            {% for x in user.notes %}
+            {% if x.data %}
+                  <li class="list-group-item active"> التاريخ</li>
+                  <li class="list-group-item"> {{x.date}}</li>
+                    <br>
+            {%endif%}
+            {%endfor%}
+          </td>
+        </td>
+          <td>
+            {% for x in user.notes %}
+            {% if x.data %}
+                  <li class="list-group-item active"> المجموع النهائي</li>
+                  <li class="list-group-item"> {{x.price}}</li>
+                  <br>
+            {%endif%}
+            {%endfor%}
+          </td>
+          <td>
+            {% for x in user.notes %}
+            {% if x.data %}
+                  <li class="list-group-item active"> المجموع النهائي</li>
+                  <li class="list-group-item"> {{x.unites}}</li>
+                  <br>
+            {%endif%}
+            {%endfor%}
+          </td>
+          <td>
+            {% for x in user.notes %}
+            {% if x.data %}
+                  <li class="list-group-item active"> المجموع النهائي</li>
+                  <li class="list-group-item"> {{x.service_type}}</li>
+                  <br>
+            {%endif%}
+            {%endfor%}
+          </td>
+          <td>
+            {% for x in user.notes %}
+            {% if x.data %}
+                  <li class="list-group-item active"> المجموع النهائي</li>
+                  <li class="list-group-item"> {{x.unites}}</li>
+                  <br>
+            {%endif%}
+            {%endfor%}
+          </td>
+  </table>
+</div>
+<br>
+
+
+
+<!-- scritp to hide tables -->
+<script>
+  let toggle = button => {
+    let element = document.getElementById("mytable");
+    let hidden = element.getAttribute("hidden");
+
+    if (hidden) {
+       element.removeAttribute("hidden");
+       button.innerText = "اخفاء ";
+    } else {
+       element.setAttribute("hidden", "hidden");
+       button.innerText = "عرض الكل";
+    }
+  }
+</script>
+
+{%endblock%}
+

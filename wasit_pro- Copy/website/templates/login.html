@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+
+<!-- title block -->
+{% block title%} Home {% endblock%}
+
+<!-- style -->
+{%block style%} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+{%endblock%}
+
+
+<!-- content -->
+{% block content%} 
+<div class="login-box">
+    <form method="POST">
+        <br>
+        <h2 align="center">تسجيل الدخول الي منصة وسيط المملكة</h2>
+        <div class="user-box">
+            <input class="form-control" type="email" id="email"  name="email" placeholder="Enter email">
+        </div>
+        <div class="user-box">
+            <input class="form-control" type="password" id="password"  name="password1" placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+
+    </form>
+</div>{% endblock %}
