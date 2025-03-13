@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Ticket</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success-color: #22c55e;
+            --success-dark: #16a34a;
+            --background-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 2fr auto;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        select, input[type="text"] {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+        }
+
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            min-width: 120px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--success-dark);
+            transform: translateY(-1px);
+        }
+
+        .results-section {
+            margin-top: 2rem;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--text-secondary);
+            position: sticky;
+            top: 0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-open {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-in-progress {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-resolved {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            width: 100%;
+            height: 4px;
+            background-color: #f3f4f6;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .loading::after {
+            content: '';
+            display: block;
+            width: 40%;
+            height: 100%;
+            background-color: var(--primary-color);
+            animation: loading 1s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(200%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1>Ticket Tracking System</h1>
+            <a href="/" class="back-btn">
+                ← Back to Home
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <form method="POST" class="search-form" onsubmit="showLoading()">
+                <div class="form-group">
+                    <label for="search-type">Search By</label>
+                    <select id="search-type" name="search-type" onchange="toggleSearchField()">
+                        <option value="ticket">Ticket ID</option>
+                        <option value="user">User ID</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search-input">Enter ID</label>
+                    <input type="text" id="search-input" name="ticket_id" placeholder="Enter Ticket ID">
+                </div>
+                <button type="submit">
+                    Search
+                </button>
+            </form>
+
+            {% if ticket_info %}
+            <div class="results-section animate__animated animate__fadeIn">
+                <div class="results-header">
+                    <h2>Ticket Details</h2>
+                </div>
+                <table>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <td>{{ ticket_info[1] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ ticket_info[2] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>{{ ticket_info[3] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Issue</th>
+                        <td>{{ ticket_info[4] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ ticket_info[5] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <span class="status-badge status-{{ ticket_info[6]|lower }}">
+                                {% if ticket_info[6]|lower == 'completed' %}
+                                    Finished
+                                {% elif ticket_info[6]|lower == 'pending' %}
+                                    Waiting
+                                {% else %}
+                                    {{ ticket_info[6] }}
+                                {% endif %}
+                            </span>
+                            {% if ticket_info[6]|lower == 'completed' %}
+                                <span style="margin-left: 10px; font-size: 1.2rem;">✅</span>
+                            {% elif ticket_info[6]|lower == 'pending' %}
+                                <span style="margin-left: 10px; font-size: 1.2rem;">⌚</span>
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <th>Created At</th>
+                        <td>{{ ticket_info[7] }}</td>
+                    </tr>
+                </table>
+            </div>
+            {% elif tickets_info %}
+            <div class="results-section animate__animated animate__fadeIn">
+                <div class="results-header">
+                    <h2>All Tickets for User</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Username</th>
+                            <th>Project</th>
+                            <th>Issue</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in tickets_info %}
+                        <tr>
+                            <td>{{ ticket[1] }}</td>
+                            <td>{{ ticket[2] }}</td>
+                            <td>{{ ticket[3] }}</td>
+                            <td>{{ ticket[4] }}</td>
+                            <td>{{ ticket[5] }}</td>
+                            <td>
+                                <span class="status-badge status-{{ ticket[6]|lower }}">
+                                    {% if ticket[6]|lower == 'completed' %}
+                                        Finished
+                                    {% elif ticket[6]|lower == 'pending' %}
+                                        Waiting
+                                    {% else %}
+                                        {{ ticket[6] }}
+                                    {% endif %}
+                                </span>
+                                {% if ticket[6]|lower == 'completed' %}
+                                    <span style="margin-left: 10px; font-size: 1.2rem;">✅</span>
+                                {% elif ticket[6]|lower == 'pending' %}
+                                    <span style="margin-left: 10px; font-size: 1.2rem;">⌚</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td>{{ ticket[7] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% elif ticket_info is not none or tickets_info is not none %}
+            <div class="no-results animate__animated animate__fadeIn">
+                <p>No tickets found matching your search criteria. Please try again.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function toggleSearchField() {
+            const searchType = document.getElementById('search-type').value;
+            const searchInput = document.getElementById('search-input');
+            
+            if (searchType === 'ticket') {
+                searchInput.name = 'ticket_id';
+                searchInput.placeholder = 'Enter Ticket ID';
+            } else {
+                searchInput.name = 'user_id';
+                searchInput.placeholder = 'Enter User ID';
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #092B60;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #4E7B46;
+        }
+        .nav-links a.active {
+            background-color: #4E7B46;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #092B60;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 10px 0;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .nav-links a {
+                text-align: center;
+                padding: 15px;
+            }
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+            }
+            .hamburger div {
+                width: 25px;
+                height: 3px;
+                background-color: white;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        body.dark-mode .container {
+            background-color: #34495e;
+        }
+        .container h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        /* Dark mode toggle button */
+        .dark-mode-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4E7B46;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode-btn:hover {
+            background-color: #092B60;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #092B60;
+            color: white;
+        }
+        body.dark-mode th {
+            background-color: #4E7B46;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        body.dark-mode tr:nth-child(even) {
+            background-color: #3b4f61;
+        }
+        tr:hover {
+            background-color: #eef4fb;
+            cursor: pointer;
+        }
+        body.dark-mode tr:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body class="{{ 'dark-mode' if theme == 'dark' else 'light-mode' }}">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Completed Tickets</h1>
+        <div class="hamburger" onclick="toggleNav()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="nav-links">
+            <a href="/admin" class="active">Admin Page</a>
+            <a href="/create_ticket">Create Ticket</a>
+            <a href="/settings">Settings</a>
+        </div>
+    </div>
+
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">
+        {{ '🌞' if theme == 'dark' else '🌙' }}
+    </button>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Completed Tickets</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Title</th>
+                    <th>Project</th>
+                    <th>Issue</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket[1] }}</td>
+                        <td>{{ ticket[2] }}</td>
+                        <td>{{ ticket[4] }}</td>
+                        <td>{{ ticket[5] }}</td>
+                        <td>{{ ticket[7] }}</td>
+                        <td>
+                            <span class="status-badge status-{{ ticket[6]|lower }}">
+                                {{ ticket[6] }}
+                            </span>
+                            {% if ticket[6]|lower == 'completed' %}
+                            <span style="margin-left: 10px; font-size: 1.2rem;">✅</span>
+                            {% endif %}
+                        </td>
+                        
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const isDarkMode = body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode', !isDarkMode);
+
+            fetch('/set-theme', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ theme: isDarkMode ? 'dark' : 'light' })
+            });
+        }
+
+        function toggleNav() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

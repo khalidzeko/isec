@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musaied - Support Ticket System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006C45;
+            --primary-dark: #005635;
+            --secondary: #00815B;
+            --light-bg: #f7f7f7;
+            --dark-bg: #121212;
+            --light-card: #ffffff;
+            --dark-card: #1f1f1f;
+            --light-text: #2f3640;
+            --dark-text: #eaeaea;
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            --dark-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            --button-bg: #006C45;
+            --button-hover: #00815B;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #f7f7f7;
+        }
+
+        body.rtl {
+            direction: rtl;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* ===== HEADER STYLES ===== */
+        header {
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            background-color: #fff;
+            padding: 15px 0;
+        }
+
+        body.dark-mode header {
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 180px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle, .language-toggle {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover, .language-toggle:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        body.dark-mode .theme-toggle, 
+        body.dark-mode .language-toggle {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        body.dark-mode .theme-toggle:hover, 
+        body.dark-mode .language-toggle:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        /* ===== MAIN CONTENT STYLES ===== */
+        .main-content {
+            padding: 40px 20px;
+            min-height: calc(100vh - 240px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            transition: background 0.3s ease;
+        }
+
+        h2 {
+            font-family: inherit;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container {
+            background-color: var(--light-card);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-mode .form-container {
+            background-color: var(--dark-card);
+            box-shadow: var(--dark-shadow);
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f7f7f7;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-container select {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f7f7f7;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        body.dark-mode .form-container input,
+        body.dark-mode .form-container select,
+        body.dark-mode .form-container textarea {
+            background-color: #333;
+            color: var(--dark-text);
+            border: 1px solid #444;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus,
+        .form-container textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(0, 108, 69, 0.5);
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: var(--button-bg);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-container button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        .ticket-id-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .ticket-id {
+            font-family: inherit;
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .ticket-id:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .already-have-ticket {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .already-have-ticket {
+            color: var(--secondary);
+        }
+
+        .already-have-ticket:hover {
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* App download links */
+        .app-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .app-links img {
+            height: 40px;
+            transition: transform 0.3s;
+        }
+
+        .app-links img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Remember me checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        body.rtl .checkbox-container {
+            justify-content: flex-start;
+        }
+
+        body.rtl .checkbox-container input[type="checkbox"] {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+
+        /* ===== FOOTER STYLES ===== */
+        footer {
+            background-color: var(--primary-dark);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            color: #fff;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-container {
+                padding: 20px 15px;
+            }
+            
+            .app-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="/api/placeholder/220/80" alt="SAMACares Logo" class="logo">
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="language-toggle" onclick="toggleLanguage()">
+                    <span class="lang-icon">EN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="lang-title">Ticket System</h2>
+                <form method="POST">
+                    <input type="number" name="username" placeholder="Your ID" required class="lang-id-placeholder">
+                    <select name="project" required class="lang-project">
+                        <option value="" disabled selected class="lang-select-project">Select a Project</option>
+                        <option value="Managers">Managers</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Al Rajhi">Al Rajhi</option>
+                        <option value="Al Riyadh">Al Riyadh</option>
+                        <option value="Al Bilad">Al Bilad</option>
+                        <option value="ANB">ANB</option>
+                        <option value="Emkan">Emkan</option>
+                        <option value="Tabby">Tabby</option>
+                        <option value="Tamara">Tamara</option>
+                        <option value="SNB">SNB</option>
+                        <option value="Madfou">Madfou</option>
+                    </select>
+                    <select name="issue" required class="lang-issue">
+                        <option value="" disabled selected class="lang-select-issue">Select an Issue</option>
+                        <option value="حصل">حصل</option>
+                        <option value="تسجيل دخول">تسجيل دخول</option>
+                        <option value="الاتصال">الاتصال</option>
+                        <option value="كلمة السر الجهاز خطأ">كلمة السر الجهاز خطأ</option>
+                        <option value="اخرى">اخرى</option>
+                    </select>
+                    <textarea name="description" placeholder="Describe the issue" class="lang-description-placeholder"></textarea>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember" class="lang-remember-me">Remember me</label>
+                    </div>
+                    
+                    <button type="submit" class="lang-submit-btn">Submit</button>
+                </form>
+
+                <!-- Conditional text to show if user already has a ticket -->
+                <div class="ticket-id-container">
+                    <p class="ticket-id" onclick="copyTicketID()">
+                        <span class="lang-ticket-id-text">Your Ticket ID:</span> <strong id="ticket-id-value">{{ ticket_id }}</strong>
+                    </p>
+                </div>
+
+                <a href="/track" class="already-have-ticket lang-already-have-ticket">Already have a ticket? Click here</a>
+                
+                <!-- App download links -->
+                <div class="app-links">
+                    <img src="/api/placeholder/140/40" alt="App Gallery">
+                    <img src="/api/placeholder/140/40" alt="Google Play">
+                    <img src="/api/placeholder/140/40" alt="App Store">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <p class="footer-text lang-copyright">© <span id="current-year"></span> All rights reserved. Saudi Central Bank</p>
+            <div class="social-links">
+                <a href="#" class="social-icon">🐦</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize language and theme
+        document.addEventListener("DOMContentLoaded", () => {
+            // Set current
