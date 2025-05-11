@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #006C45;
-            --primary-dark: #005635;
-            --secondary: #00815B;
+            --primary: #0984e3;
+            --primary-dark: #2854a6;
+            --secondary: #3498db;
             --light-bg: #f7f7f7;
             --dark-bg: #121212;
             --light-card: #ffffff;
@@ -18,8 +18,6 @@
             --dark-text: #eaeaea;
             --shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
             --dark-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            --button-bg: #006C45;
-            --button-hover: #00815B;
         }
 
         body {
@@ -27,7 +25,6 @@
             margin: 0;
             padding: 0;
             transition: background-color 0.3s, color 0.3s;
-            background-color: #f7f7f7;
         }
 
         body.rtl {
@@ -52,8 +49,10 @@
             position: relative;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.light-mode header {
             background-color: #fff;
-            padding: 15px 0;
         }
 
         body.dark-mode header {
@@ -64,7 +63,7 @@
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -73,11 +72,10 @@
         .logo-container {
             display: flex;
             align-items: center;
-            justify-content: center;
         }
 
         .logo {
-            width: 180px;
+            width: 120px;
             height: auto;
             transition: transform 0.3s ease;
         }
@@ -129,34 +127,50 @@
         .main-content {
             padding: 40px 20px;
             min-height: calc(100vh - 240px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .container {
-            max-width: 500px;
-            width: 100%;
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
             transition: background 0.3s ease;
+        }
+
+        body.light-mode .container {
+            background: linear-gradient(135deg, #f0f4f8, #e1e6ea);
+        }
+
+        body.dark-mode .container {
+            background: linear-gradient(135deg, #1e1e1e, #292929);
         }
 
         h2 {
             font-family: inherit;
-            font-size: 28px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--primary);
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 20px;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+        }
+
+        h2:hover {
+            color: var(--secondary);
+            transform: scale(1.03);
+            letter-spacing: 3px;
         }
 
         .form-container {
             background-color: var(--light-card);
-            padding: 30px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 18px;
             box-shadow: var(--shadow);
             width: 100%;
+            max-width: 480px;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
@@ -167,29 +181,27 @@
 
         .form-container input,
         .form-container textarea {
-            width: 100%;
-            padding: 12px;
+            width: 93%;
+            padding: 16px;
             margin: 12px 0;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             background-color: #f7f7f7;
             color: var(--light-text);
             transition: all 0.3s ease;
-            box-sizing: border-box;
         }
 
         .form-container select {
             width: 100%;
-            padding: 12px;
+            padding: 16px;
             margin: 12px 0;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             background-color: #f7f7f7;
             color: var(--light-text);
             transition: all 0.3s ease;
-            box-sizing: border-box;
         }
 
         body.dark-mode .form-container input,
@@ -204,26 +216,30 @@
         .form-container select:focus,
         .form-container textarea:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 8px rgba(0, 108, 69, 0.5);
+            box-shadow: 0 0 8px rgba(9, 132, 227, 0.5);
             outline: none;
         }
 
         .form-container button {
-            background-color: var(--button-bg);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 14px;
+            padding: 18px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
-            margin-top: 10px;
+        }
+
+        body.dark-mode .form-container button {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
         }
 
         .form-container button:hover {
-            background-color: var(--button-hover);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(9, 132, 227, 0.3);
         }
 
         .ticket-id-container {
@@ -236,11 +252,11 @@
 
         .ticket-id {
             font-family: inherit;
-            font-size: 16px;
-            color: #666;
+            font-size: 18px;
+            color: #aab6c2;
             text-align: center;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             cursor: pointer;
             display: inline-block;
@@ -250,15 +266,16 @@
             background-color: var(--secondary);
             color: white;
             transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .already-have-ticket {
             display: block;
-            margin-top: 20px;
+            margin-top: 25px;
             text-align: center;
             color: var(--primary);
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
         }
@@ -270,75 +287,193 @@
         .already-have-ticket:hover {
             color: var(--secondary);
             transform: translateY(-2px);
-        }
-
-        /* App download links */
-        .app-links {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .app-links img {
-            height: 40px;
-            transition: transform 0.3s;
-        }
-
-        .app-links img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Remember me checkbox */
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            margin: 10px 0;
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            width: auto;
-            margin-right: 8px;
-        }
-
-        body.rtl .checkbox-container {
-            justify-content: flex-start;
-        }
-
-        body.rtl .checkbox-container input[type="checkbox"] {
-            margin-right: 0;
-            margin-left: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* ===== FOOTER STYLES ===== */
         footer {
-            background-color: var(--primary-dark);
+            background: linear-gradient(to right, #1a1a1a, #2c2c2c);
             color: #fff;
-            padding: 20px;
-            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        body.light-mode footer {
+            background: linear-gradient(to right, #2c3e50, #34495e);
         }
 
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
 
-        .footer-text {
-            font-size: 14px;
+        .footer-section h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        body.rtl .footer-section h3::after {
+            left: auto;
+            right: 0;
+        }
+
+        .footer-section:hover h3::after {
+            width: 80px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-links a::before {
+            content: '›';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        body.rtl .footer-links a::before {
+            content: '‹';
+            left: auto;
+            right: -15px;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        body.rtl .footer-links a:hover {
+            transform: translateX(-5px);
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-form button {
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
         }
 
         .social-links {
             display: flex;
-            justify-content: center;
             gap: 15px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .social-icon {
-            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #ffffff;
             font-size: 20px;
             text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
         }
 
         /* Responsive adjustments */
@@ -348,13 +483,17 @@
                 gap: 15px;
             }
             
-            .form-container {
-                padding: 20px 15px;
+            .footer-container {
+                grid-template-columns: 1fr;
             }
             
-            .app-links {
+            .footer-bottom {
                 flex-direction: column;
-                align-items: center;
+                text-align: center;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -364,7 +503,7 @@
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <img src="/api/placeholder/220/80" alt="SAMACares Logo" class="logo">
+                <img src="https://exprience-sa.com/wp-content/uploads/2022/11/%D8%AE-%D9%85%D9%84%D9%88%D9%86-0%D9%A2.png" alt="Exprience Logo" class="logo">
             </div>
             <div class="header-controls">
                 <button class="theme-toggle" onclick="toggleTheme()">
@@ -407,12 +546,6 @@
                         <option value="اخرى">اخرى</option>
                     </select>
                     <textarea name="description" placeholder="Describe the issue" class="lang-description-placeholder"></textarea>
-                    
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember" class="lang-remember-me">Remember me</label>
-                    </div>
-                    
                     <button type="submit" class="lang-submit-btn">Submit</button>
                 </form>
 
@@ -424,13 +557,6 @@
                 </div>
 
                 <a href="/track" class="already-have-ticket lang-already-have-ticket">Already have a ticket? Click here</a>
-                
-                <!-- App download links -->
-                <div class="app-links">
-                    <img src="/api/placeholder/140/40" alt="App Gallery">
-                    <img src="/api/placeholder/140/40" alt="Google Play">
-                    <img src="/api/placeholder/140/40" alt="App Store">
-                </div>
             </div>
         </div>
     </div>
@@ -438,9 +564,53 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-container">
-            <p class="footer-text lang-copyright">© <span id="current-year"></span> All rights reserved. Saudi Central Bank</p>
-            <div class="social-links">
-                <a href="#" class="social-icon">🐦</a>
+            <div class="footer-section">
+                <h3 class="lang-about-us">About Us</h3>
+                <p class="lang-about-text">Exprience is a leading debt collection and customer service provider in Saudi Arabia, offering innovative solutions with the highest standards of quality and customer satisfaction.</p>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="social-icon">📘</a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon">🐦</a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon">📸</a>
+                    <a href="https://linkedin.com" target="_blank" class="social-icon">🔗</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="lang-quick-links">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/" class="lang-home">Home</a></li>
+                    <li><a href="/services" class="lang-services">Services</a></li>
+                    <li><a href="/about" class="lang-about">About</a></li>
+                    <li><a href="/contact" class="lang-contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="lang-support">Support</h3>
+                <ul class="footer-links">
+                    <li><a href="/faq" class="lang-faq">FAQ</a></li>
+                    <li><a href="/help" class="lang-help-center">Help Center</a></li>
+                    <li><a href="/terms" class="lang-terms">Terms & Conditions</a></li>
+                    <li><a href="/privacy" class="lang-privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="lang-newsletter">Newsletter</h3>
+                <p class="lang-newsletter-text">Subscribe to receive our latest updates and offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required class="lang-email-placeholder">
+                    <button type="submit" class="lang-subscribe">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">© <span id="current-year"></span> <span class="lang-copyright">Exprience for debt collection. All rights reserved.</span></p>
+            <div class="footer-nav">
+                <a href="/terms" class="lang-terms-footer">Terms</a>
+                <a href="/privacy" class="lang-privacy-footer">Privacy</a>
+                <a href="/cookies" class="lang-cookies">Cookies</a>
             </div>
         </div>
     </footer>
@@ -448,4 +618,208 @@
     <script>
         // Initialize language and theme
         document.addEventListener("DOMContentLoaded", () => {
-            // Set current
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem("theme") || "light-mode";
+            document.body.className = savedTheme;
+            updateThemeIcon(savedTheme);
+            
+            // Load saved language
+            const savedLang = localStorage.getItem("language") || "en";
+            if (savedLang === "ar") {
+                document.body.classList.add("rtl");
+                updateLanguageTexts("ar");
+            } else {
+                updateLanguageTexts("en");
+            }
+            updateLanguageIcon(savedLang);
+        });
+
+        // Theme toggle function
+        function toggleTheme() {
+            const isDarkMode = document.body.classList.toggle("dark-mode");
+            document.body.classList.toggle("light-mode", !isDarkMode);
+            
+            const currentTheme = isDarkMode ? "dark-mode" : "light-mode";
+            localStorage.setItem("theme", currentTheme);
+            
+            updateThemeIcon(currentTheme);
+        }
+        
+        // Update theme icon
+        function updateThemeIcon(theme) {
+            const themeIcon = document.querySelector(".theme-icon");
+            themeIcon.textContent = theme === "dark-mode" ? "🌞" : "🌙";
+        }
+        
+        // Language toggle function
+        function toggleLanguage() {
+            const isRTL = document.body.classList.toggle("rtl");
+            const newLang = isRTL ? "ar" : "en";
+            
+            localStorage.setItem("language", newLang);
+            updateLanguageTexts(newLang);
+            updateLanguageIcon(newLang);
+        }
+        
+        // Update language display
+        function updateLanguageIcon(lang) {
+            const langIcon = document.querySelector(".lang-icon");
+            langIcon.textContent = lang === "ar" ? "EN" : "AR";
+        }
+        
+        // Update text based on selected language
+        function updateLanguageTexts(lang) {
+            const translations = {
+                // Header and general UI
+                "title": {
+                    "en": "Ticket System",
+                    "ar": "نظام التذاكر"
+                },
+                "id-placeholder": {
+                    "en": "Your ID",
+                    "ar": "رقم الهوية"
+                },
+                "select-project": {
+                    "en": "Select a Project",
+                    "ar": "اختر المشروع"
+                },
+                "select-issue": {
+                    "en": "Select an Issue",
+                    "ar": "اختر المشكلة"
+                },
+                "description-placeholder": {
+                    "en": "Describe the issue",
+                    "ar": "وصف المشكلة"
+                },
+                "submit-btn": {
+                    "en": "Submit",
+                    "ar": "إرسال"
+                },
+                "ticket-id-text": {
+                    "en": "Your Ticket ID:",
+                    "ar": "رقم التذكرة الخاص بك:"
+                },
+                "already-have-ticket": {
+                    "en": "Already have a ticket? Click here",
+                    "ar": "هل لديك تذكرة بالفعل؟ انقر هنا"
+                },
+                
+                // Footer
+                "about-us": {
+                    "en": "About Us",
+                    "ar": "من نحن"
+                },
+                "about-text": {
+                    "en": "Exprience is a leading debt collection and customer service provider in Saudi Arabia, offering innovative solutions with the highest standards of quality and customer satisfaction.",
+                    "ar": "إكسبريانس هي شركة رائدة في مجال تحصيل الديون وخدمة العملاء في المملكة العربية السعودية، تقدم حلولًا مبتكرة بأعلى معايير الجودة ورضا العملاء."
+                },
+                "quick-links": {
+                    "en": "Quick Links",
+                    "ar": "روابط سريعة"
+                },
+                "home": {
+                    "en": "Home",
+                    "ar": "الرئيسية"
+                },
+                "services": {
+                    "en": "Services",
+                    "ar": "الخدمات"
+                },
+                "about": {
+                    "en": "About",
+                    "ar": "عن الشركة"
+                },
+                "contact": {
+                    "en": "Contact",
+                    "ar": "اتصل بنا"
+                },
+                "support": {
+                    "en": "Support",
+                    "ar": "الدعم"
+                },
+                "faq": {
+                    "en": "FAQ",
+                    "ar": "الأسئلة الشائعة"
+                },
+                "help-center": {
+                    "en": "Help Center",
+                    "ar": "مركز المساعدة"
+                },
+                "terms": {
+                    "en": "Terms & Conditions",
+                    "ar": "الشروط والأحكام"
+                },
+                "privacy": {
+                    "en": "Privacy Policy",
+                    "ar": "سياسة الخصوصية"
+                },
+                "newsletter": {
+                    "en": "Newsletter",
+                    "ar": "النشرة الإخبارية"
+                },
+                "newsletter-text": {
+                    "en": "Subscribe to receive our latest updates and offers.",
+                    "ar": "اشترك لتلقي آخر التحديثات والعروض."
+                },
+                "email-placeholder": {
+                    "en": "Enter your email",
+                    "ar": "أدخل بريدك الإلكتروني"
+                },
+                "subscribe": {
+                    "en": "Subscribe",
+                    "ar": "اشترك"
+                },
+                "copyright": {
+                    "en": "Exprience for debt collection. All rights reserved.",
+                    "ar": "إكسبريانس لتحصيل الديون. جميع الحقوق محفوظة."
+                },
+                "terms-footer": {
+                    "en": "Terms",
+                    "ar": "الشروط"
+                },
+                "privacy-footer": {
+                    "en": "Privacy",
+                    "ar": "الخصوصية"
+                },
+                "cookies": {
+                    "en": "Cookies",
+                    "ar": "ملفات تعريف الارتباط"
+                }
+            };
+            
+            // Update all translatable elements
+            Object.keys(translations).forEach(key => {
+                const elements = document.getElementsByClassName(`lang-${key}`);
+                if (elements.length > 0) {
+                    for (let el of elements) {
+                        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                            el.placeholder = translations[key][lang];
+                        } else {
+                            el.textContent = translations[key][lang];
+                        }
+                    }
+                }
+            });
+        }
+        
+        function copyTicketID() {
+            // Get the ticket ID text
+            const ticketID = document.querySelector('.ticket-id strong').textContent;
+
+            // Create a temporary input element to copy the ticket ID
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = ticketID; // Set the value to the ticket ID
+            tempInput.select(); // Select the text in the input field
+            document.execCommand('copy'); // Execute the copy command
+            document.body.removeChild(tempInput); // Remove the temporary input element
+
+            // Optionally, show a message to the user that the ticket ID has been copied
+            alert('Ticket ID copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
